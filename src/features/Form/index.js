@@ -2,14 +2,31 @@ import React, { useState, useReducer, useEffect } from "react";
 import styles from "./index.module.scss";
 import { Input, Shipping, Button, Card, Total } from "../../ui";
 
-const data = [
+const mock = [
   {
-    text: "",
-    price: "",
-    img: "",
+    text: "The Chelsea Boot",
+    price: "$235",
+    img: "https://picsum.photos/200/300",
     name: "",
+    color: "black",
+    quantity: "1",
+  },
+
+  {
+    text: "The Twill Snap Backpack",
+    price: "$65",
+    img: "https://picsum.photos/200/300",
+    name: "Reverse Denim + Brow leather",
     color: "",
-    quantity: "",
+    quantity: "1",
+  },
+  {
+    text: "The Twill Zip Tote",
+    price: "$48",
+    img: "https://picsum.photos/200/300",
+    name: "Reverse Denim + Black leather",
+    color: "",
+    quantity: "1",
   },
 ];
 
@@ -48,6 +65,13 @@ const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 
 function reducer(state, action) {
   return { ...state, [action.type]: action.payload };
+}
+function summ() {
+  let total = 0;
+
+  mock.map((item) => {
+    return (total = total + item.price);
+  });
 }
 
 async function getGeoFromApi(url) {
@@ -171,8 +195,8 @@ export function Form() {
           <Button label="Continue" type="submit" />
         </div>
         <div className={styles.column__second}>
-          <Card />
-          <Total />
+          <Card data={mock} />
+          <Total data={summ} />
         </div>
       </div>
     </form>

@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./index.module.scss";
 
-export function Card() {
+export function Card(props) {
+  const { data } = props;
   return (
     <div className={styles.wrapper}>
       <div className={styles.column}>
@@ -12,13 +13,24 @@ export function Card() {
           </a>
         </p>
       </div>
-      <div className={styles.card}>
-        <img className={styles.img} src="" alt="картинка товара"></img>
-        <span className={styles.name}></span>
-        <span className={styles.color}></span>
-        <span className={styles.quantity}></span>
-        <span className={styles.price}></span>
-      </div>
+      {data.map((item) => (
+        <div className={styles.cart}>
+          <img
+            className={styles.img}
+            src={item.img}
+            alt="картинка товара"
+          ></img>
+          <div className={styles.card}>
+            <span className={styles.desc__bold}>{item.text}</span>
+            <span className={styles.desc}>{item.name}</span>
+            <span className={styles.desc}>{item.color}</span>
+            <span className={styles.desc}>Quantity: {item.quantity}</span>
+          </div>
+          <div>
+            <span className={styles.desc}>{item.price}</span>
+          </div>
+        </div>
+      ))}
       <hr className={styles.line}></hr>
     </div>
   );
