@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 200px;
+  padding: 5px 5px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  &[data-error="true"] {
+    border-color: red;
+  }
+}
+.error {
+  font-size: 10px;
+  color: red;
+}

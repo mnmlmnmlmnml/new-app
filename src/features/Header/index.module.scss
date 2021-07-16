@@ -1,0 +1,32 @@
+.header {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+
+  color: black;
+}
+
+.text {
+  text-align: center;
+  font-size: 30px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.desc {
+  font-size: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+
+  columns: 2;
+  max-width: 100%;
+  background-color: white;
+}
+
+.column__first {
+  padding: 10px;
+  width: 50%;
+}
+
+.column__second {
+  background-color: #fafafa;
+  padding: 10px;
+  width: 50%;
+}

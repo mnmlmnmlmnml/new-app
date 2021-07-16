@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.text {
+  color: #848482;
+  font-size: 15px;
+}
+
+.price {
+  color: #848482;
+  font-size: 15px;
+}
+.line {
+  width: 100%;
+}
+.text__desc {
+  color: #9400d3;
+}
+
+.price__desc {
+  color: #9400d3;
+}
