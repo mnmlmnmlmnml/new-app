@@ -2,33 +2,37 @@ import React, { useState, useReducer, useEffect } from "react";
 import styles from "./index.module.scss";
 import { Input, Shipping, Button, Card, Total } from "../../ui";
 
-const mock = [
-  {
-    text: "The Chelsea Boot",
-    price: "$235",
-    img: "https://picsum.photos/200/300",
-    name: "",
-    color: "black",
-    quantity: "1",
-  },
+const mock = {
+  products: [
+    {
+      text: "The Chelsea Boot",
+      price: 235,
+      img: "https://picsum.photos/200/300",
+      name: "",
+      color: "black",
+      quantity: "1",
+    },
 
-  {
-    text: "The Twill Snap Backpack",
-    price: "$65",
-    img: "https://picsum.photos/200/300",
-    name: "Reverse Denim + Brow leather",
-    color: "",
-    quantity: "1",
-  },
-  {
-    text: "The Twill Zip Tote",
-    price: "$48",
-    img: "https://picsum.photos/200/300",
-    name: "Reverse Denim + Black leather",
-    color: "",
-    quantity: "1",
-  },
-];
+    {
+      text: "The Twill Snap Backpack",
+      price: 65,
+      img: "https://picsum.photos/200/300",
+      name: "Reverse Denim + Brow leather",
+      color: "",
+      quantity: "1",
+    },
+    {
+      text: "The Twill Zip Tote",
+      price: 48,
+      img: "https://picsum.photos/200/300",
+      name: "Reverse Denim + Black leather",
+      color: "",
+      quantity: "1",
+    },
+  ],
+  taxes: 12,
+  shipping: 0,
+};
 
 const initialState = {
   name: "",
@@ -66,13 +70,6 @@ const apiKey = "4d8fb5b93d4af21d66a2948710284366";
 function reducer(state, action) {
   return { ...state, [action.type]: action.payload };
 }
-function summ() {
-  let total = 0;
-
-  mock.map((item) => {
-    return (total = total + item.price);
-  });
-}
 
 async function getGeoFromApi(url) {
   let data = null;
@@ -91,7 +88,7 @@ export function Form() {
   const [errors, setErrors] = useState({});
 
   function success(pos) {
-    var crd = pos.coords;
+    const crd = pos.coords;
     console.log(`Широта: ${crd.latitude}`);
     console.log(`Долгота: ${crd.longitude}`);
     setCoordinates({
@@ -109,6 +106,11 @@ export function Form() {
       const { data } = await getGeoFromApi(
         `http://api.openweathermap.org/geo/1.0/reverse?lat=${coordinates.lat}&lon=${coordinates.lng}&limit=2&appid=${apiKey}`
       );
+      const city = data[0].local_names.ru;
+      dispatch({
+        type: "city",
+        payload: city,
+      });
     }
   }, [coordinates]);
 
@@ -119,6 +121,10 @@ export function Form() {
     });
     setErrors({});
   }
+
+  const sum = mock.products.reduce((acc, item) => {
+    return (acc += item.price);
+  }, 0);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -136,6 +142,7 @@ export function Form() {
     console.log(data);
   }
   console.log(errors);
+
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.wrapper}>
@@ -145,7 +152,7 @@ export function Form() {
             label="Recipient"
             placeholder="Full Name"
             onChange={handleChange}
-            name=" full name"
+            name="name"
             data={data}
             errors={errors}
           />
@@ -156,14 +163,16 @@ export function Form() {
             name="tel"
             errors={errors}
           />
-          <Input
-            label="Address"
-            placeholder="Street Address"
-            onChange={handleChange}
-            data={data}
-            name="address"
-            errors={errors}
-          />
+          <div className={styles.address}>
+            <Input
+              label="Address"
+              placeholder="Street Address"
+              onChange={handleChange}
+              data={data}
+              name="address"
+              errors={errors}
+            />
+          </div>
           <Input
             placeholder="Apt,Suite,Bldg(optional)"
             onChange={handleChange}
@@ -195,8 +204,8 @@ export function Form() {
           <Button label="Continue" type="submit" />
         </div>
         <div className={styles.column__second}>
-          <Card data={mock} />
-          <Total data={summ} />
+          <Card data={mock.products} />
+          <Total sum={sum} taxes={mock.taxes} shipping={mock.shipping} />
         </div>
       </div>
     </form>

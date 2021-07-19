@@ -27,7 +27,7 @@ export function Card(props) {
             <span className={styles.desc}>Quantity: {item.quantity}</span>
           </div>
           <div>
-            <span className={styles.desc}>{item.price}</span>
+            <span className={styles.desc}>{item.price} $</span>
           </div>
         </div>
       ))}

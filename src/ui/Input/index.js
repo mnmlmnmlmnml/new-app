@@ -18,8 +18,8 @@ export function Input(props) {
           required={required}
           data-error={!!errors[name]}
         />
+        {errors[name] && <span className={styles.error}>{errors[name]}</span>}
       </label>
-      {errors[name] && <span className={styles.error}>{errors[name]}</span>}
     </>
   );
 }
